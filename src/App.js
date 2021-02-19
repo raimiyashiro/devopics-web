@@ -6,7 +6,8 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 
 
-import Table from './components/Table'
+import Topics from './components/Topics'
+import Tags from './components/Tags';
 
 function Copyright() {
   return (
@@ -53,7 +54,8 @@ export default function StickyFooter() {
           {'Knowledge is the key. Take as much as you need, and share what you find useful.'}
         </Typography>
 
-        <Table />
+        <Tags />
+        <Topics />
       </Container>
 
       

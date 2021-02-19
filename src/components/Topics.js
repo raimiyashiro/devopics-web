@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-export default function List() {
+export default function Topics() {
 
   const url = 'http://localhost:8080/topics';
 
@@ -22,7 +22,7 @@ export default function List() {
 
   return (
     <div>
-      <h1>All categories</h1>
+      <h1>All topics</h1>
       <ul>
         {topics.map(topic => <li key={topic.id}><a target="_blank" href={topic.url}>{topic.title}</a></li>)}
       </ul>
