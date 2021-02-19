@@ -50,7 +50,7 @@ export default function StickyFooter() {
           Devopics
         </Typography>
         <Typography variant="h5" component="h2" gutterBottom>
-          {'Knowledge is the key. Take as much as you need, and share what you find useful.'}
+          {'The most useful links about trending tech topics, driven by developers.'}
         </Typography>
 
         <Tags />
