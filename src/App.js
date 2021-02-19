@@ -6,7 +6,6 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 
 
-import Topics from './components/Topics'
 import Tags from './components/Tags';
 
 function Copyright() {
@@ -55,10 +54,9 @@ export default function StickyFooter() {
         </Typography>
 
         <Tags />
-        <Topics />
       </Container>
 
-      
+
       <footer className={classes.footer}>
         <Container maxWidth="sm">
           <Typography variant="body1">This beautiful website comes from @material-ui/core.</Typography>
