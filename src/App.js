@@ -7,6 +7,7 @@ import Link from '@material-ui/core/Link';
 
 
 import Tags from './components/Tags';
+import { Button } from '@material-ui/core';
 
 function Copyright() {
   return (
@@ -46,9 +47,19 @@ export default function StickyFooter() {
     <div className={classes.root}>
       <CssBaseline />
       <Container component="main" className={classes.main} maxWidth="sm">
-        <Typography variant="h2" component="h1" gutterBottom>
-          Devopics
+
+        <div style={{ display: 'flex' }}>
+          <Typography variant="h2" component="h1" gutterBottom>
+            Devopics
         </Typography>
+          <Button style={{
+            margin: '8px',
+            maxHeight: '36px',
+            color: '#fff',
+            backgroundColor: '#2ecc71'
+          }}>Suggest</Button>
+        </div>
+
         <Typography variant="h5" component="h2" gutterBottom>
           {'The most useful links about trending tech topics, driven by developers.'}
         </Typography>

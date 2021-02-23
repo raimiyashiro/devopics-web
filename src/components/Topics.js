@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export default function Topics({ tag }) {
 
-  const url = 'http://localhost:8080/topics';
+  const url = `${process.env.REACT_APP_DEV_API}/topics`;
 
   const [topics, setTopics] = useState([]);
 
@@ -23,11 +23,11 @@ export default function Topics({ tag }) {
 
 
   return (
-    <div>
+    <>
       <h1>{tag === null ? 'All topics' : tag}</h1>
       <ul>
         {topics.map(topic => <li key={topic.id}><a target="_blank" href={topic.url}>{topic.title}</a></li>)}
       </ul>
-    </div>
+    </>
   );
 }

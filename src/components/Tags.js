@@ -7,7 +7,7 @@ import axios from 'axios';
 
 export default function Tags() {
 
-    const url = 'http://localhost:8080/tags';
+    const url = `${process.env.REACT_APP_DEV_API}/tags`;
 
     const [tags, setTags] = useState([]);
     const [topics, setTopics] = useState(null);
