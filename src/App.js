@@ -1,26 +1,14 @@
 import React from 'react';
+
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
-
-
-import Tags from './components/Tags';
 import { Button } from '@material-ui/core';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary">
-      {'Copyright © '}
-      <Link color="inherit" href="https://github.com/raimiyashiro/devopics">
-        devopics
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { makeStyles } from '@material-ui/core/styles';
+
+import Footer from './components/Footer';
+import Tags from './components/Tags';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,13 +19,7 @@ const useStyles = makeStyles((theme) => ({
   main: {
     marginTop: theme.spacing(8),
     marginBottom: theme.spacing(2),
-  },
-  footer: {
-    padding: theme.spacing(3, 2),
-    marginTop: 'auto',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
-  },
+  }
 }));
 
 export default function StickyFooter() {
@@ -63,17 +45,9 @@ export default function StickyFooter() {
         <Typography variant="h5" component="h2" gutterBottom>
           {'The most useful links about trending tech topics, driven by developers.'}
         </Typography>
-
         <Tags />
       </Container>
-
-
-      <footer className={classes.footer}>
-        <Container maxWidth="sm">
-          <Typography variant="body1">This beautiful website comes from @material-ui/core.</Typography>
-          <Copyright />
-        </Container>
-      </footer>
+      <Footer />
     </div>
   );
 }
