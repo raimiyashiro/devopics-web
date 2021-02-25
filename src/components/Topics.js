@@ -9,6 +9,13 @@ export default function Topics({ tag }) {
   const [topics, setTopics] = useState([]);
 
   const fetchData = async () => {
+
+    // Debugging
+    console.log(`*** STARTING REQUEST ***`)
+    console.log(url);
+    console.log(`USERNAME: ${process.env.REACT_APP_SECURITY_USERNAME}`)
+    console.log(`PASSWORD: ${process.env.REACT_APP_SECURITY_PASSWORD}`)
+
     const response = await axios.get(
       tag === null ? url : url + `?tags=${tag}`, {
       auth: {
