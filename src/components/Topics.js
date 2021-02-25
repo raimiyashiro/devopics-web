@@ -10,7 +10,12 @@ export default function Topics({ tag }) {
 
   const fetchData = async () => {
     const response = await axios.get(
-      tag === null ? url : url + `?tags=${tag}`
+      tag === null ? url : url + `?tags=${tag}`, {
+      auth: {
+        username: process.env.REACT_APP_SECURITY_USERNAME,
+        password: process.env.REACT_APP_SECURITY_PASSWORD,
+      }
+    }
     );
     setTopics(response.data);
 

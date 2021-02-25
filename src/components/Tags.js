@@ -13,7 +13,12 @@ export default function Tags() {
     const [topics, setTopics] = useState(null);
 
     const fetchTags = async () => {
-        const response = await axios.get(url);
+        const response = await axios.get(url, {
+            auth: {
+                username: process.env.REACT_APP_SECURITY_USERNAME,
+                password: process.env.REACT_APP_SECURITY_PASSWORD,
+            }
+        });
         setTags(response.data);
 
     }
