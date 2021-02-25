@@ -10,7 +10,7 @@ export default function Tags() {
     const url = `${process.env.REACT_APP_DEV_API}/tags`;
 
     const [tags, setTags] = useState([]);
-    const [topics, setTopics] = useState(null);
+    const [topic, setTopic] = useState(null);
 
     const fetchTags = async () => {
         const response = await axios.get(url);
@@ -34,7 +34,7 @@ export default function Tags() {
             <h1>Categories</h1>
             <ul>
                 {tags.map(tag => <Button key={tag.id}
-                    onClick={() => setTopics(tag.name)}
+                    onClick={() => setTopic(tag.name)}
                     style={{
                         color: tag.text,
                         backgroundColor: tag.color,
@@ -44,7 +44,7 @@ export default function Tags() {
                     {tag.name}
                 </Button>)}
 
-                <Button onClick={() => setTopics(null)}
+                <Button onClick={() => setTopic(null)}
                     style={{
                         color: '#fff',
                         backgroundColor: '#e74c3c',
@@ -55,7 +55,7 @@ export default function Tags() {
                 </Button>
             </ul>
 
-            <Topics tag={topics} />
+            <Topics tag={topic} />
 
         </div>
     );

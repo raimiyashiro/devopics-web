@@ -6,7 +6,10 @@ export default function Topics({ tag }) {
 
   const url = `${process.env.REACT_APP_DEV_API}/topics`;
 
+  const defaultTitle = 'All topics'
+
   const [topics, setTopics] = useState([]);
+  const [title, setTitle] = useState(defaultTitle);
 
   const fetchData = async () => {
     const response = await axios.get(
@@ -17,14 +20,21 @@ export default function Topics({ tag }) {
   }
 
   useEffect(() => {
-    fetchData()
-    console.log(topics)
+    fetchData().then(() => {
+      if (tag) {
+        setTitle(tag);
+      }
+      else {
+        setTitle(defaultTitle);
+      }
+    });
+
   }, [tag]);
 
 
   return (
     <>
-      <h1>{tag === null ? 'All topics' : tag}</h1>
+      <h1>{title}</h1>
       <ul>
         {topics.map(topic => <li key={topic.id}><a target="_blank" href={topic.url}>{topic.title}</a></li>)}
       </ul>
