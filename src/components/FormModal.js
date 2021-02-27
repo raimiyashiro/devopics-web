@@ -22,7 +22,7 @@ export default function ModalForm({ event }) {
 
     useEffect(() => {
         if (event != 0) {
-            setDisplay(!display)
+            setDisplay(!display);
         };
     }, [event]);
 
@@ -32,23 +32,19 @@ export default function ModalForm({ event }) {
     const fetchTags = async () => {
         const response = await axios.get(api);
         setTags(response.data);
-        console.log(tags);
     }
 
     const [title, setTitle] = useState(null);
     const [url, setUrl] = useState(null);
-    const [tag, setTag] = useState({})
+    const [tag, setTag] = useState({});
 
     const handleSubmit = () => {
-        console.log(title);
-        console.log(url);
-        console.log(tag);
     }
 
-
     useEffect(() => {
-        fetchTags()
+        fetchTags();
     }, []);
+
 
     return (
         <Modal
@@ -98,7 +94,8 @@ export default function ModalForm({ event }) {
                         color: '#fff',
                         backgroundColor: '#2ecc71'
                     }}
-                >Submit
+                >
+                    {'Submit'}
                 </Button>
             </div>
         </Modal>

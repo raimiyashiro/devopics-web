@@ -31,6 +31,7 @@ export default function SimpleModal() {
     setEvent(Math.random());
   }
 
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -39,8 +40,8 @@ export default function SimpleModal() {
 
         <div style={{ display: 'flex' }}>
           <Typography variant="h2" component="h1" gutterBottom>
-            Devopics
-        </Typography>
+            {'Devopics'}
+          </Typography>
           <Button
             onClick={handleEvent}
             style={{
@@ -48,7 +49,10 @@ export default function SimpleModal() {
               maxHeight: '36px',
               color: '#fff',
               backgroundColor: '#2ecc71'
-            }}>Suggest</Button>
+            }}
+          >
+            {'Suggest'}
+          </Button>
         </div>
 
         <Typography variant="h5" component="h2" gutterBottom>

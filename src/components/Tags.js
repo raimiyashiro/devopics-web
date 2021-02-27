@@ -13,13 +13,12 @@ export default function Tags() {
     const [topic, setTopic] = useState(null);
 
     const fetchTags = async () => {
-        const response = await axios.get(url);
+        const response = await axios.get(url, { params: { withTopics: true } });
         setTags(response.data);
-
     }
 
     useEffect(() => {
-        fetchTags()
+        fetchTags();
         console.log(tags)
     }, []);
 
@@ -35,28 +34,17 @@ export default function Tags() {
             <ul>
                 {tags.map(tag => <Button key={tag.id}
                     onClick={() => setTopic(tag.name)}
-                    style={{
-                        color: tag.text,
-                        backgroundColor: tag.color,
-                        margin: '4px',
-                        minWidth: '64px'
-                    }}>
+                    style={{ color: tag.text, backgroundColor: tag.color, margin: '4px', minWidth: '64px' }}>
                     {tag.name}
                 </Button>)}
 
                 <Button onClick={() => setTopic(null)}
-                    style={{
-                        color: '#fff',
-                        backgroundColor: '#e74c3c',
-                        margin: '4px',
-                        minWidth: '64px'
-                    }}>
-                    SEE ALL
+                    style={{ color: '#fff', backgroundColor: '#e74c3c', margin: '4px', minWidth: '64px' }}>
+                    {'SEE ALL'}
                 </Button>
             </ul>
 
             <Topics tag={topic} />
-
         </div>
     );
 }

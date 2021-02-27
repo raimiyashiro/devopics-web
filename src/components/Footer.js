@@ -4,7 +4,6 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 
-
 import { makeStyles } from '@material-ui/core/styles';
 
 export default function Footer() {
@@ -13,8 +12,8 @@ export default function Footer() {
             padding: theme.spacing(3, 2),
             marginTop: 'auto',
             backgroundColor:
-                theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
-        },
+                theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800]
+        }
     }));
 
     const classes = useStyles();
@@ -27,10 +26,9 @@ export default function Footer() {
                 <Typography variant="body2" color="textSecondary">
                     {'Copyright © '}
                     <Link color="inherit" href="https://github.com/raimiyashiro/devopics">
-                        devopics
-        </Link>{' '}
-                    {new Date().getFullYear()}
-                    {'.'}
+                        {'devopics'}
+                    </Link>
+                    {' '} {new Date().getFullYear()} {'.'}
                 </Typography>
             </Container>
         </footer>
