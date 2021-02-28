@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Input, InputLabel, NativeSelect } from '@material-ui/core';
+
+import { Modal, Button, Input, InputLabel, NativeSelect, Snackbar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 
 import axios from 'axios';
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -32,11 +38,25 @@ export default function ModalForm({ event }) {
     const fetchTags = async () => {
         const response = await axios.get(`${api}/tags`);
         setTags(response.data);
+        console.log(tags);
     }
 
     const [title, setTitle] = useState(null);
     const [url, setUrl] = useState(null);
     const [tag, setTag] = useState({});
+
+    const [snack, setSnack] = useState(false);
+    const [err, setErr] = useState(false);
+    const [warn, setWarn] = useState(false);
+    const [info, setInfo] = useState(false);
+
+
+    const handleCloseAlert = () => {
+        setSnack(false);
+        setErr(false);
+        setWarn(false);
+        setInfo(false);
+    }
 
     const handleSubmit = () => {
         if (title && url && tag.id) {
@@ -51,18 +71,18 @@ export default function ModalForm({ event }) {
                 tags: [tag]
             })
                 .then(response => {
-                    if (response.status == 200) {
-                        // Pop success message
-                        setDisplay(false);
-                    } else if (response.status == 400) {
-                        // Pop error message
+                    setSnack(true);
+                })
+                .catch(error => {
+                    if (error.response.status && error.response.status === 400) {
+                        setErr(true);
                     } else {
-                        // Do something else :P
+                        setWarn(true);
                     }
                 });
         } else {
             // Highlight missing fields
-            console.log("Missing fields...")
+            setInfo(true);
         }
     }
 
@@ -79,7 +99,10 @@ export default function ModalForm({ event }) {
                 justifyContent: 'center',
             }}
             open={display}
-            onClose={() => setDisplay(false)}
+            onClose={() => {
+                setDisplay(false);
+                handleCloseAlert();
+            }}
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
         >
@@ -122,6 +145,28 @@ export default function ModalForm({ event }) {
                 >
                     {'Submit'}
                 </Button>
+
+
+                <Snackbar open={snack} autoHideDuration={5000} onClose={handleCloseAlert}>
+                    <Alert onClose={handleCloseAlert} severity="success">
+                        This is a success message!
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={err} autoHideDuration={5000} onClose={handleCloseAlert}>
+                    <Alert onClose={handleCloseAlert} severity="error">
+                        This is an error message!
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={warn} autoHideDuration={5000} onClose={handleCloseAlert}>
+                    <Alert onClose={handleCloseAlert} severity="warning">
+                        This is a warning message!
+                    </Alert>
+                </Snackbar>
+                <Snackbar open={info} autoHideDuration={5000} onClose={handleCloseAlert}>
+                    <Alert onClose={handleCloseAlert} severity="info">
+                        This is an information message!
+                    </Alert>
+                </Snackbar>
             </div>
         </Modal>
     );
