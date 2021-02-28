@@ -26,11 +26,11 @@ export default function ModalForm({ event }) {
         };
     }, [event]);
 
-    const api = `${process.env.REACT_APP_DEV_API}/tags`;
+    const api = process.env.REACT_APP_DEV_API;
     const [tags, setTags] = useState([]);
 
     const fetchTags = async () => {
-        const response = await axios.get(api);
+        const response = await axios.get(`${api}/tags`);
         setTags(response.data);
     }
 
@@ -39,6 +39,31 @@ export default function ModalForm({ event }) {
     const [tag, setTag] = useState({});
 
     const handleSubmit = () => {
+        if (title && url && tag.id) {
+            console.log({
+                title: title,
+                url: url,
+                tag: tag
+            });
+            const request = axios.post(`${api}/topics`, {
+                title: title,
+                url: url,
+                tags: [tag]
+            })
+                .then(response => {
+                    if (response.status == 200) {
+                        // Pop success message
+                        setDisplay(false);
+                    } else if (response.status == 400) {
+                        // Pop error message
+                    } else {
+                        // Do something else :P
+                    }
+                });
+        } else {
+            // Highlight missing fields
+            console.log("Missing fields...")
+        }
     }
 
     useEffect(() => {
@@ -61,7 +86,7 @@ export default function ModalForm({ event }) {
             <div className={classes.paper}>
                 <h1 id="simple-modal-title">Share your knowledge with us!</h1>
                 <p id="simple-modal-description">
-                    Our aim is to create a hub where developers can find what they're looking for, just by a few clicks.
+                    We want to create a hub where developers can find and suggest (?).
                 </p>
                 <Input placeholder={'Title (ex: Lambdas in Java)'}
                     autoFocus={true}

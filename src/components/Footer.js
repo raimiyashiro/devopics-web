@@ -22,9 +22,9 @@ export default function Footer() {
     return (
         <footer className={classes.footer}>
             <Container maxWidth="sm">
-                <Typography variant="body1">This beautiful website comes from @material-ui/core.</Typography>
+                <Typography variant="body1">Created by @raimiyashiro.</Typography>
                 <Typography variant="body2" color="textSecondary">
-                    {'Copyright © '}
+                    {'github © '}
                     <Link color="inherit" href="https://github.com/raimiyashiro/devopics">
                         {'devopics'}
                     </Link>
