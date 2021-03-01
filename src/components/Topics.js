@@ -12,7 +12,7 @@ export default function Topics({ tag }) {
   const [title, setTitle] = useState(defaultTitle);
 
   const fetchData = async () => {
-    const response = await axios.get(tag === null ? url : url + `?tags=${tag}`);
+    const response = await axios.get(tag === null ? url : url + `?tags=${tag}`, { headers: { "Access-Control-Allow-Origin": "*" } });
     setTopics(response.data);
   }
 

@@ -13,7 +13,7 @@ export default function Tags() {
     const [topic, setTopic] = useState(null);
 
     const fetchTags = async () => {
-        const response = await axios.get(url, { params: { havingTopics: true } });
+        const response = await axios.get(url, { params: { havingTopics: true }, headers: { "Access-Control-Allow-Origin": "*" } });
         setTags(response.data);
     }
 

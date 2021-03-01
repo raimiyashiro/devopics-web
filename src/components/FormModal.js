@@ -33,7 +33,7 @@ export default function ModalForm({ event }) {
     const [tag, setTag] = useState(null);
 
     const fetchTags = async () => {
-        const response = await axios.get(`${api}/tags`)
+        const response = await axios.get(`${api}/tags`, { headers: { "Access-Control-Allow-Origin": "*" } })
             .then(res => {
                 setTags(res.data);
                 setTag(res.data[0]);
@@ -72,7 +72,7 @@ export default function ModalForm({ event }) {
                 tags: [tag]
             }
 
-            const request = axios.post(`${api}/topics`, body)
+            const request = axios.post(`${api}/topics`, body, { headers: { "Access-Control-Allow-Origin": "*" } })
                 .then(response => {
                     setSnack(true);
                 })
