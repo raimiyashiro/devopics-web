@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Modal, Button, Input, InputLabel, NativeSelect, Snackbar } from '@material-ui/core';
+import { Modal, Button, Input, InputLabel, NativeSelect, FormControl, Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -22,46 +22,47 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ModalForm({ event }) {
-    const api = process.env.REACT_APP_DEV_API;
     const classes = useStyles();
+    const api = process.env.REACT_APP_DEV_API;
 
-    const [display, setDisplay] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const [tags, setTags] = useState([]);
+
     const [title, setTitle] = useState(null);
     const [url, setUrl] = useState(null);
     const [tag, setTag] = useState(null);
 
     const fetchTags = async () => {
-        const response = await axios.get(`${api}/tags`, { headers: { "Access-Control-Allow-Origin": "*" } })
+        await axios.get(`${api}/tags`, { headers: { "Access-Control-Allow-Origin": "*" } })
             .then(res => {
                 setTags(res.data);
-                setTag(res.data[0]);
+                if (!tag) { setTag(res.data[0]); }
             })
             .finally(() => {
                 if (tag) {
-                    console.log(`Default tag setted to ${tag.name}`);
+                    console.log(`Current tag is: ${tag.name}`);
                 }
             });
     }
 
     useEffect(() => {
         if (event != 0) {
-            setDisplay(!display);
+            setOpen(!open);
         };
         fetchTags();
     }, [event]);
 
-    const [snack, setSnack] = useState(false);
-    const [err, setErr] = useState(false);
-    const [warn, setWarn] = useState(false);
-    const [info, setInfo] = useState(false);
+    const [successSnack, setSuccessSnack] = useState(false);
+    const [errSnack, setErrSnack] = useState(false);
+    const [warnSnack, setWarnSnack] = useState(false);
+    const [infoSnack, setInfoSnack] = useState(false);
 
     const handleCloseAlert = () => {
-        setSnack(false);
-        setErr(false);
-        setWarn(false);
-        setInfo(false);
+        setSuccessSnack(false);
+        setErrSnack(false);
+        setWarnSnack(false);
+        setInfoSnack(false);
     }
 
     const handleSubmit = () => {
@@ -72,19 +73,19 @@ export default function ModalForm({ event }) {
                 tags: [tag]
             }
 
-            const request = axios.post(`${api}/topics`, body, { headers: { "Access-Control-Allow-Origin": "*" } })
-                .then(response => {
-                    setSnack(true);
+            axios.post(`${api}/topics`, body, { headers: { "Access-Control-Allow-Origin": "*" } })
+                .then(() => {
+                    setSuccessSnack(true);
                 })
                 .catch(error => {
                     if (error.response.status && error.response.status === 400) {
-                        setErr(true);
+                        setErrSnack(true);
                     } else {
-                        setWarn(true);
+                        setWarnSnack(true);
                     }
                 });
         } else {
-            setInfo(true);
+            setInfoSnack(true);
         }
     }
 
@@ -96,9 +97,9 @@ export default function ModalForm({ event }) {
                 alignItems: 'center',
                 justifyContent: 'center',
             }}
-            open={display}
+            open={open}
             onClose={() => {
-                setDisplay(false);
+                setOpen(false);
                 handleCloseAlert();
             }}
             aria-labelledby="simple-modal-title"
@@ -119,17 +120,18 @@ export default function ModalForm({ event }) {
                 />
 
                 <div style={{ margin: '10px 0px 10px 0px' }}>
-                    <InputLabel htmlFor="select">Tag</InputLabel>
-                    <NativeSelect id="select">
-                        {tags.map(i =>
-                            <option
-                                key={i.id}
-                                value={i.id}
-                                onClick={() => setTag(i)}
-                            >
-                                {i.name}
-                            </option>)}
-                    </NativeSelect>
+                    <FormControl>
+                        <InputLabel shrink>
+                            Tag
+                        </InputLabel>
+
+                        <NativeSelect onChange={(e) => setTag({ id: e.target.value })}>
+                            <option defaultValue="">
+                                Choose
+                            </option>
+                            {tags.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+                        </NativeSelect>
+                    </FormControl>
                 </div>
 
                 <Button
@@ -144,22 +146,22 @@ export default function ModalForm({ event }) {
                     {'Submit'}
                 </Button>
 
-                <Snackbar open={snack} autoHideDuration={5000} onClose={handleCloseAlert}>
+                <Snackbar open={successSnack} autoHideDuration={5000} onClose={handleCloseAlert}>
                     <Alert onClose={handleCloseAlert} severity="success">
                         This is a success message!
                     </Alert>
                 </Snackbar>
-                <Snackbar open={err} autoHideDuration={5000} onClose={handleCloseAlert}>
+                <Snackbar open={errSnack} autoHideDuration={5000} onClose={handleCloseAlert}>
                     <Alert onClose={handleCloseAlert} severity="error">
                         This is an error message!
                     </Alert>
                 </Snackbar>
-                <Snackbar open={warn} autoHideDuration={5000} onClose={handleCloseAlert}>
+                <Snackbar open={warnSnack} autoHideDuration={5000} onClose={handleCloseAlert}>
                     <Alert onClose={handleCloseAlert} severity="warning">
                         This is a warning message!
                     </Alert>
                 </Snackbar>
-                <Snackbar open={info} autoHideDuration={5000} onClose={handleCloseAlert}>
+                <Snackbar open={infoSnack} autoHideDuration={5000} onClose={handleCloseAlert}>
                     <Alert onClose={handleCloseAlert} severity="info">
                         This is an information message!
                     </Alert>
