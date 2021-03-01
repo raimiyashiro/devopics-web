@@ -33,17 +33,14 @@ export default function ModalForm({ event }) {
     const [tag, setTag] = useState(null);
 
     const fetchTags = async () => {
-        console.log("Fetching tags");
         const response = await axios.get(`${api}/tags`)
             .then(res => {
                 setTags(res.data);
                 setTag(res.data[0]);
             })
             .finally(() => {
-                console.log(tags);
-                console.log(`Default tag setted to ${tag}`);
+                console.log(`Default tag setted to ${tag.name}`);
             });
-
     }
 
     useEffect(() => {
@@ -53,12 +50,10 @@ export default function ModalForm({ event }) {
         fetchTags();
     }, [event]);
 
-
     const [snack, setSnack] = useState(false);
     const [err, setErr] = useState(false);
     const [warn, setWarn] = useState(false);
     const [info, setInfo] = useState(false);
-
 
     const handleCloseAlert = () => {
         setSnack(false);
@@ -146,7 +141,6 @@ export default function ModalForm({ event }) {
                 >
                     {'Submit'}
                 </Button>
-
 
                 <Snackbar open={snack} autoHideDuration={5000} onClose={handleCloseAlert}>
                     <Alert onClose={handleCloseAlert} severity="success">
