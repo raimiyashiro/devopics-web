@@ -121,13 +121,13 @@ export default function ModalForm({ event }) {
                 <div style={{ margin: '10px 0px 10px 0px' }}>
                     <InputLabel htmlFor="select">Tag</InputLabel>
                     <NativeSelect id="select">
-                        {tags.map(tag =>
+                        {tags.map(i =>
                             <option
-                                key={tag.id}
-                                value={tag.id}
-                                onClick={() => setTag(tag)}
+                                key={i.id}
+                                value={i.id}
+                                onClick={() => setTag(i)}
                             >
-                                {tag.name}
+                                {i.name}
                             </option>)}
                     </NativeSelect>
                 </div>
