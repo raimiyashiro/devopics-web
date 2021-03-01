@@ -39,7 +39,9 @@ export default function ModalForm({ event }) {
                 setTag(res.data[0]);
             })
             .finally(() => {
-                console.log(`Default tag setted to ${tag.name}`);
+                if (tag) {
+                    console.log(`Default tag setted to ${tag.name}`);
+                }
             });
     }
 
