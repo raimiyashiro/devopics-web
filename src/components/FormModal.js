@@ -22,28 +22,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ModalForm({ event }) {
+    const api = process.env.REACT_APP_DEV_API;
     const classes = useStyles();
 
     const [display, setDisplay] = useState(false);
+
+    const [tags, setTags] = useState([]);
+    const [title, setTitle] = useState(null);
+    const [url, setUrl] = useState(null);
+    const [tag, setTag] = useState(null);
+
+    const fetchTags = async () => {
+        console.log("Fetching tags");
+        const response = await axios.get(`${api}/tags`)
+            .then(res => {
+                setTags(res.data);
+                setTag(res.data[0]);
+            })
+            .finally(() => {
+                console.log(tags);
+                console.log(`Default tag setted to ${tag}`);
+            });
+
+    }
 
     useEffect(() => {
         if (event != 0) {
             setDisplay(!display);
         };
+        fetchTags();
     }, [event]);
 
-    const api = process.env.REACT_APP_DEV_API;
-    const [tags, setTags] = useState([]);
-
-    const fetchTags = async () => {
-        const response = await axios.get(`${api}/tags`);
-        setTags(response.data);
-        console.log(tags);
-    }
-
-    const [title, setTitle] = useState(null);
-    const [url, setUrl] = useState(null);
-    const [tag, setTag] = useState({});
 
     const [snack, setSnack] = useState(false);
     const [err, setErr] = useState(false);
@@ -59,17 +68,14 @@ export default function ModalForm({ event }) {
     }
 
     const handleSubmit = () => {
-        if (title && url && tag.id) {
-            console.log({
-                title: title,
-                url: url,
-                tag: tag
-            });
-            const request = axios.post(`${api}/topics`, {
+        if (title && url && tag) {
+            const body = {
                 title: title,
                 url: url,
                 tags: [tag]
-            })
+            }
+
+            const request = axios.post(`${api}/topics`, body)
                 .then(response => {
                     setSnack(true);
                 })
@@ -81,14 +87,9 @@ export default function ModalForm({ event }) {
                     }
                 });
         } else {
-            // Highlight missing fields
             setInfo(true);
         }
     }
-
-    useEffect(() => {
-        fetchTags();
-    }, []);
 
 
     return (
