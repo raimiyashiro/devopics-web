@@ -37,12 +37,6 @@ export default function ModalForm({ event }) {
         await axios.get(`${api}/tags`, { headers: { "Access-Control-Allow-Origin": "*" } })
             .then(res => {
                 setTags(res.data);
-                if (!tag) { setTag(res.data[0]); }
-            })
-            .finally(() => {
-                if (tag) {
-                    console.log(`Current tag is: ${tag.name}`);
-                }
             });
     }
 
@@ -76,6 +70,8 @@ export default function ModalForm({ event }) {
                 url: url,
                 tags: [tag]
             }
+
+            console.log(body);
 
             axios.post(`${api}/topics`, body, { headers: { "Access-Control-Allow-Origin": "*" } })
                 .then(() => {
