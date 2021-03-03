@@ -148,22 +148,22 @@ export default function ModalForm({ event }) {
 
                 <Snackbar open={successSnack} autoHideDuration={5000} onClose={handleCloseAlert}>
                     <Alert onClose={handleCloseAlert} severity="success">
-                        This is a success message!
+                        Thank you for suggesting. We're going to review your submission soon.
                     </Alert>
                 </Snackbar>
                 <Snackbar open={errSnack} autoHideDuration={5000} onClose={handleCloseAlert}>
                     <Alert onClose={handleCloseAlert} severity="error">
-                        This is an error message!
+                        We couldn't accept your suggestion. Sorry, try it later.
                     </Alert>
                 </Snackbar>
                 <Snackbar open={warnSnack} autoHideDuration={5000} onClose={handleCloseAlert}>
                     <Alert onClose={handleCloseAlert} severity="warning">
-                        This is a warning message!
+                        Oops! We didn't expect this to happen.
                     </Alert>
                 </Snackbar>
                 <Snackbar open={infoSnack} autoHideDuration={5000} onClose={handleCloseAlert}>
                     <Alert onClose={handleCloseAlert} severity="info">
-                        This is an information message!
+                        There are missing fields in your submission!
                     </Alert>
                 </Snackbar>
             </div>
