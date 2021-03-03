@@ -59,10 +59,14 @@ export default function ModalForm({ event }) {
     const [infoSnack, setInfoSnack] = useState(false);
 
     const handleCloseAlert = () => {
-        setSuccessSnack(false);
-        setErrSnack(false);
-        setWarnSnack(false);
-        setInfoSnack(false);
+        if (successSnack || warnSnack) {
+            setSuccessSnack(false);
+            setWarnSnack(false);
+            setOpen(false);
+        } else {
+            setInfoSnack(false);
+            setErrSnack(false);
+        }
     }
 
     const handleSubmit = () => {
