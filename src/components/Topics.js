@@ -10,6 +10,7 @@ export default function Topics({ tag }) {
 
   const [topics, setTopics] = useState([]);
   const [title, setTitle] = useState(defaultTitle);
+  const [color, setColor] = useState(null);
 
   const fetchData = async () => {
     const response = await axios.get(tag === null ? url : url + `?tags=${tag.name}`);
@@ -20,6 +21,7 @@ export default function Topics({ tag }) {
     fetchData().then(() => {
       if (tag) {
         setTitle(tag.name);
+        setColor(tag.color);
       }
       else {
         setTitle(defaultTitle);
@@ -36,7 +38,7 @@ export default function Topics({ tag }) {
           <li key={topic.id}>
             <h4>
               <a target="_blank" href={topic.url}
-                style={{ color: tag ? tag.color : '#e74c3c', textDecoration: 'none' }}
+                style={{ color: color ? color : '#e74c3c' }}
               >
                 {topic.title}
               </a>
