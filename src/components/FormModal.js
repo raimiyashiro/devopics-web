@@ -52,6 +52,8 @@ export default function ModalForm({ event }) {
     const [warnSnack, setWarnSnack] = useState(false);
     const [infoSnack, setInfoSnack] = useState(false);
 
+    const [errMessage, setErrMessage] = useState(null);
+
     const handleCloseAlert = () => {
         if (successSnack || warnSnack) {
             setSuccessSnack(false);
@@ -80,6 +82,7 @@ export default function ModalForm({ event }) {
                 .catch(error => {
                     if (error.response.status && error.response.status === 400) {
                         setErrSnack(true);
+                        setErrMessage(error.response.data.error.message);
                     } else {
                         setWarnSnack(true);
                     }
@@ -153,7 +156,7 @@ export default function ModalForm({ event }) {
                 </Snackbar>
                 <Snackbar open={errSnack} autoHideDuration={5000} onClose={handleCloseAlert}>
                     <Alert onClose={handleCloseAlert} severity="error">
-                        We couldn't accept your suggestion. Sorry, try it later.
+                        {errMessage ? errMessage : `We couldn't accept your suggestion. Sorry, try it later.`}
                     </Alert>
                 </Snackbar>
                 <Snackbar open={warnSnack} autoHideDuration={5000} onClose={handleCloseAlert}>
