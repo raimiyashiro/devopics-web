@@ -108,7 +108,7 @@ export default function ModalForm({ event }) {
             <div className={classes.paper}>
                 <h1 id="simple-modal-title">Share your knowledge with us!</h1>
                 <p id="simple-modal-description">
-                    We want to create a hub where developers can find and suggest (?).
+                    We want to create a hub where developers can easily find what they're looking for.
                 </p>
                 <Input placeholder={'Title (ex: Lambdas in Java)'}
                     autoFocus={true}
@@ -127,7 +127,7 @@ export default function ModalForm({ event }) {
 
                         <NativeSelect onChange={(e) => setTag({ id: e.target.value })}>
                             <option defaultValue="">
-                                Choose
+                                empty (not allowed)
                             </option>
                             {tags.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
                         </NativeSelect>
