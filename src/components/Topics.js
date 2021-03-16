@@ -12,14 +12,14 @@ export default function Topics({ tag }) {
   const [title, setTitle] = useState(defaultTitle);
 
   const fetchData = async () => {
-    const response = await axios.get(tag === null ? url : url + `?tags=${tag}`, { headers: { "Access-Control-Allow-Origin": "*" } });
+    const response = await axios.get(tag === null ? url : url + `?tags=${tag.name}`);
     setTopics(response.data);
   }
 
   useEffect(() => {
     fetchData().then(() => {
       if (tag) {
-        setTitle(tag);
+        setTitle(tag.name);
       }
       else {
         setTitle(defaultTitle);
@@ -34,9 +34,13 @@ export default function Topics({ tag }) {
       <ul>
         {topics.map(topic =>
           <li key={topic.id}>
-            <a target="_blank" href={topic.url}>
-              {topic.title}
-            </a>
+            <h4>
+              <a target="_blank" href={topic.url}
+                style={{ color: tag ? tag.color : '#e74c3c', textDecoration: 'none' }}
+              >
+                {topic.title}
+              </a>
+            </h4>
           </li>)}
       </ul>
     </div>
